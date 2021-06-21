@@ -1,0 +1,146 @@
+Usage: Cache, NoSQL DB, message broker
+
+Redis Datatypes: Strings, Lists, Sets, Sorted Sets, Hashes, Bitmaps, Geospatial Indexes
+
+// Set
+SET foo 100
+SET bar "Hello World"
+
+// Get
+Get foo
+
+// Increment
+INCR foo
+GET foo // gives 101
+
+// Decrement
+DECR foo // decrements by 1
+
+// Check for existence
+EXISTS foo // gives 1
+EXISTS foo1 // gives 0
+
+// Delete a key
+DEL bar
+
+// Clear all
+FLUSHALL
+
+// Set expiration
+SET greeting "Hello World" 
+EXPIRE greeting 50 // expires in 50 seconds
+
+// To check how much time left in expiration
+TTL greeting
+
+// Set with expiration
+SETEX greeting 50 "Hello World"
+
+// persist a key after initially setting expiration on it
+PERSIST greeting
+
+// Set multiple values
+MSET key1 "Hello" key2 "World"
+
+// Append on keys
+APPEND key1 " Sarah"
+
+// Rename keys
+RENAME key1 newKey
+
+                                                 Lists with Redis
+                     
+// Create a list
+LPUSH people "Sanyam"
+
+// Add another person to list, LPUSH adds new entry to beginning, RPUSH adds to end
+LPUSH people "Mic"
+RPUSH people "Steve"
+
+// Retreive entire list
+LRANGE people 0 -1 
+
+// Retreive a specific range: start, end
+LRANGE people 1 2 
+
+// Length of the list
+LLEN people
+
+// LPOP, RPOP
+LPOP people // removes first entry inside list
+RPOP people // removes last entry
+
+// Insertion in middle
+LINSERT people BEFORE "Steve" "Kane"
+
+                                                  Redis - Sets
+
+// Create a set and add a value
+SADD cars "Hyundai"
+SADD cars "BMW"
+
+// Check for existence
+SISMEMBER cars "Ford" // returns 0
+
+// Retreive set
+SMEMBERS cars
+
+// count number of elements
+SCARD cars
+
+// move an element to another set
+SMOVE cars mycars "Hyundai"
+
+// Remove a member
+SREM cars "BMW"
+
+                                                Redis- Sorted Sets
+
+Uses scores to maintain the ordering. Members will be unique, scores can be repeated
+
+// Add entry to a sorted set with a score
+ZADD users 1983 "Sanyam"
+ZADD users 2007 "Mic"
+ZADD users 2013 "Steve"
+ZADD users 2013 "Kane"
+
+// Get rank low to high (Position- 0 based index)
+ZRANK users "Mic" // returns 1
+
+// get all entries in sorted sets
+ZRANGE users 0 -1
+
+// Increase score of entries
+ZINCRBY users 1 "Mic"
+
+                                                    Redis - Hashes
+                                                    
+A simple key value pair like JSON
+
+// Create a hash with key value pairs
+HSET user:sanyam name "Sanyam Jain"
+HSET user:sanyam mobile "9999999999"
+
+// retreive values using key names
+HGET user:sanyam mobile // fetches value for mobile key
+
+// get all key values for a hash
+HGETALL user:sanyam
+
+// Set multiple values
+HMSET user:steve name "Steve Smith" profession "Cricket" age "30"
+
+// Get keys of a set
+HKEYS user:steve
+
+// Get values of a set
+HVALS user:steve
+
+// Increment
+HINCYBY user:steve age 1
+
+// Delete a key
+HDEL user:steve age
+
+// Length of a set (Count of key-value pairs)
+HLEN user:steve
